@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  php:
+    image: php:8.2-apache
+    ports:
+      - 8080:80
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    volumes:
+      - "./sql/seed.sql:/docker-entrypoint-initdb.d/1.sql"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test 
+  
+
+    
